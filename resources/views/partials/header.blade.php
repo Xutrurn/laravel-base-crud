@@ -15,6 +15,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('dresses.index') }}">Vestiti</a>
                     </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ route('contatti') }}">Contatti</a>
+                    </li>
                 </ul>
             </div>
         </div>

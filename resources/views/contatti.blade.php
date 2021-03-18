@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('titolo','home page')
+@section('titolo','pagina contatti')
 
 @section('content')
-    <h1>Home Page</h1>
-    <h5>{{ $messaggio }}</h5>
+    <h1>Pagina Contatti</h1>
+    <h5>{{ $email }}</h5>
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur laudantium quod aperiam sed alias exercitationem veritatis in voluptatibus rem culpa.
     </p>
 @endsection

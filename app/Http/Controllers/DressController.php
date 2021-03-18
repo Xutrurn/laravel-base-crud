@@ -15,10 +15,10 @@ class DressController extends Controller
      */
     public function index()
     {
-        $vestiti = Dress::all();
+        $vestiti_sel = Dress::all();
 
         $data = [
-            'vestiti' => $vestiti
+            'vestiti' => $vestiti_sel
         ];
         return view('dresses.index', $data);
     }
@@ -30,7 +30,7 @@ class DressController extends Controller
      */
     public function create()
     {
-        //
+        return view('dresses.create');
     }
 
     /**
@@ -41,8 +41,28 @@ class DressController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $dressNew = new Dress();
+        // $dressNew->name = $data['name'];
+        // $dressNew->color = $data['color'];
+        // $dressNew->size = $data['size'];
+        // $dressNew->price = $data['price'];
+        // $dressNew->season = $data['season'];
+        // $dressNew->description = $data['description'];
+
+        $dressNew->fill($data);
+        
+        $dressNew->save();
+
+        //return redirect()->route('dresses.index');
+        return redirect()->route('dresses.show', $dressNew->find($dressNew->id));
+
     }
+
+
+
+
 
     /**
      * Display the specified resource.

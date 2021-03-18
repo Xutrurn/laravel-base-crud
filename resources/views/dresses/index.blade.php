@@ -4,6 +4,7 @@
 
 @section('content')
     <h1>Elenco vestiti</h1>
+    <a href="{{ route('dresses.create') }}">Inserisci un vestito nuovo</a>
     <table class="table">
         <thead>
             <tr>
