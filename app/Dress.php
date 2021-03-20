@@ -10,3 +10,4 @@ class Dress extends Model
         'name','color','size','price','season','description'
     ];
 }
+

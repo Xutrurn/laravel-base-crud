@@ -43,6 +43,15 @@ class DressController extends Controller
     {
         $data = $request->all();
 
+        $request->validate([
+            'name'=> 'required|unique:dresses|max:255',
+            'size'=> 'required|max:4',
+            'color'=> 'required|max:20',
+            'price'=> 'required|max:10',
+            'season'=> 'nullable|max:255',
+            'description' => 'required'
+        ]);
+
         $dressNew = new Dress();
         // $dressNew->name = $data['name'];
         // $dressNew->color = $data['color'];
@@ -56,7 +65,7 @@ class DressController extends Controller
         $dressNew->save();
 
         //return redirect()->route('dresses.index');
-        return redirect()->route('dresses.show', $dressNew->find($dressNew->id));
+        return redirect()->route('dresses.show', $dressNew->id);
 
     }
 
@@ -70,13 +79,32 @@ class DressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $vestito_sel = Dress::find($id);
+    
+    //1 Soluzione dello show
 
-        if($vestito_sel){
+     // public function show($id)
+    // {
+    //     $vestito_sel = Dress::find($id);
+
+    //     if($vestito_sel){
+    //         $data = [
+    //         'vestito' => $vestito_sel
+    //     ];
+    //         return view('dresses.show', $data);
+    //     }
+
+    //     abort('404');
+        
+    // }
+
+    //2 Soluzione dello show
+
+    public function show(Dress $dress)
+    {
+
+        if($dress){
             $data = [
-            'vestito' => $vestito_sel
+            'vestito' => $dress
         ];
             return view('dresses.show', $data);
         }
@@ -91,9 +119,16 @@ class DressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dress $dress)
     {
-        //
+        if($dress){
+            $data = [
+            'vestito' => $dress
+        ];
+            return view('dresses.edit', $data);
+        }
+
+        abort('404');
     }
 
     /**
@@ -103,9 +138,13 @@ class DressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Dress $dress)
     {
-        //
+        $data = $request->all();
+        
+        $dress->update($data);
+
+        return redirect()->route('dresses.index');
     }
 
     /**
@@ -114,9 +153,12 @@ class DressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dress $dress)
     {
-        //
+        $dress->delete();
+
+        return redirect()->route('dresses.index')->with('status','Vestito cancellato');
+        
     }
 }
 
